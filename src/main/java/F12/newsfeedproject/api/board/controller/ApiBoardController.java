@@ -10,6 +10,8 @@ import F12.newsfeedproject.global.exception.member.UnAuthorizedModifyException;
 import F12.newsfeedproject.global.security.UserDetailsImpl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -92,10 +94,11 @@ public class ApiBoardController {
 
   @GetMapping("/follow-true")
   public ResponseEntity<List<BoardViewResponseDto>> getFollowersBoards(
-      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+      @AuthenticationPrincipal UserDetailsImpl userDetails,
+      @PageableDefault(page = 1, size = 10, sort = "createdDate") Pageable pageable) {
     User user = userDetails.getUser();
     List<BoardViewResponseDto> BoardViewResponseDto = apiBoardService.getFollowersBoards(
-        user.getUserId());
+        user.getUserId(), pageable);
 
     return ResponseEntity.ok(BoardViewResponseDto);
   }

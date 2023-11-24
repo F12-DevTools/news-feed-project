@@ -6,6 +6,7 @@ import F12.newsfeedproject.global.exception.board.BoardNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,10 +49,10 @@ public class BoardService {
     return board.getUser().getUserId();
   }
 
-  public List<Board> findAllUserFollowerBoard(Long userId) {
+  public List<Board> findAllUserFollowerBoard(Long userId, Pageable pageable) {
     log.info(("---------------------------------------------------------"));
     log.info(("팔로워 전체 조회"));
-    return boardRepository.findAllUserFollowerBoard(userId);
+    return boardRepository.findAllUserFollowerBoard(userId, pageable).getContent();
   }
   public List<Board> findAllLikeBoards(Long userId) {
     log.info(("---------------------------------------------------------"));

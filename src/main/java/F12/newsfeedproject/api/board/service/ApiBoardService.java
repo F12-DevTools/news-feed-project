@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,8 +58,8 @@ public class ApiBoardService {
     return boardService.getAuthorIdByBoardId(boardId);
   }
 
-  public List<BoardViewResponseDto> getFollowersBoards(Long userId) {
-    return boardService.findAllUserFollowerBoard(userId).stream()
+  public List<BoardViewResponseDto> getFollowersBoards(Long userId, Pageable pageable) {
+    return boardService.findAllUserFollowerBoard(userId, pageable).stream()
         .map(BoardViewResponseDto::from).collect(Collectors.toList());
   }
 
