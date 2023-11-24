@@ -3,7 +3,6 @@ package F12.newsfeedproject.domain.userboardlike.entity;
 import F12.newsfeedproject.domain.board.entity.Board;
 import F12.newsfeedproject.domain.user.entity.User;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,11 +25,11 @@ public class UserBoardLike {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userBoardLikeId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)
     private Board board;
 
